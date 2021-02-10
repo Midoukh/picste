@@ -1,0 +1,10 @@
+.Logo{
+    display: flex;
+    align-items: center;
+    height: 100%;
+    width: 15%;
+    cursor: pointer;
+}
+.Logo h3{
+    color: #00A6CD;
+}

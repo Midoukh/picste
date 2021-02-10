@@ -1,0 +1,11 @@
+.NavigationItems{
+    height: 100%;
+    width: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    list-style: none;
+    color: rgba(255, 255, 255, 0.787);
+    cursor: pointer;
+    font-weight: 700;
+}

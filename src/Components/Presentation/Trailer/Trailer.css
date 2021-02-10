@@ -1,0 +1,35 @@
+.Trailer{
+    height: 100%;
+    width: 30%;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    
+
+}
+.Trailer h3{
+    font-size: 1em;
+}
+.Frame{
+    width: 100%;
+    height: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.Frame img:first-child{
+    height: 25vh;
+    opacity: 0.8;
+    box-shadow: 8px 8px 0px rgba(173, 216, 230, 0.637);
+
+}
+.Frame img:nth-child(2){
+    height: 8vh;
+    position: absolute;
+    cursor: pointer;
+    transition: transform 0.2s cubic-bezier(0.215, 0.610, 0.355, 1);
+}
+.Frame img:nth-child(2):hover{
+    transform: rotate(360deg);
+}

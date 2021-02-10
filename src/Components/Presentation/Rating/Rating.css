@@ -1,0 +1,19 @@
+.Rating{
+    width: 25%;
+    max-height: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.Rating{
+    opacity: .9;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, .6);
+}
+.RatingAvg{
+    display: flex;
+    align-items: center;
+
+}
+.RatingAvg img{
+    margin-right: .5vw;
+}

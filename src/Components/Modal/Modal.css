@@ -1,0 +1,50 @@
+.Modal{
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+  
+}
+.Modal img{
+    height: 5vh;
+    position: absolute;
+    z-index: 1000;
+    top: 4%;
+    left: 95%;
+    cursor: pointer;
+    transition: transform 0.2s cubic-bezier(0.455, 0.03, 0.515, 0.955);
+    border-radius: 50%;
+}
+.Modal img:hover{
+    transform: rotate(360deg);
+    box-shadow: 1px 1px 40px white;
+}
+.Modal iframe{
+    width: 85%;
+    height: 90%;
+    position: absolute;
+    z-index: 999;
+    top: 4%;
+    left: 4%;
+}
+
+.Spinner{
+    animation-name: loading;
+    animation-delay: 1s;
+    animation-iteration-count: infinite;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: 30vh;
+    z-index: 998;
+}
+
+@keyframes loading{
+    0%{transform: rotate(0deg);}
+    15%{transform: rotate(50deg);}
+    30%{transform: rotate(100deg);}
+    45%{transform: rotate(200deg);}
+    60%{transform: rotate(300deg);}
+    100%{transform: rotate(360deg);}
+
+}
