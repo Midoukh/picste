@@ -1,0 +1,38 @@
+.Gallery{
+    background-color: rgba(0, 0, 0, 0.623);
+    display: flex;
+    flex-flow: column;
+    max-width: 100%;
+    overflow-x: hidden;
+    box-sizing: border-box;
+    color: white;
+    padding: 0 1rem;
+    position: relative;
+}
+.Items{
+    display: grid;
+    grid-template-columns: repeat(10, 20vw);
+    grid-column-gap: 1.5rem;
+}
+.right, .left{
+    height: 10vh;
+    cursor: pointer;
+    transition: all 0.5s cubic-bezier(0.755, 0.05, 0.855, 0.06);
+    position: absolute;
+    left: 94%;
+    top: 50%;
+}
+.left {   
+    left: 0%;
+    display: none;
+
+}
+.left:hover{
+    transform: translateX(-3%);
+
+}
+.right:hover{
+    transform: translateX(4%);
+
+    
+}

@@ -6,8 +6,9 @@
     background-color: #000321;
     box-sizing: border-box;
     background-size: cover;
+  
     z-index: 100;
-    background-repeat: no-repeat;
+    /* background-repeat: no-repeat; */
   
 
 }
@@ -35,7 +36,7 @@
 
 }
 .Details p{
-    width: 30%;
+    
     word-wrap: break-word;
     text-shadow: 1px 1px 3px rgba(0, 0, 0, .4);
 
@@ -45,4 +46,73 @@
     color: rgb(255, 255, 117);
     text-shadow: 1px 1px 3px rgba(0, 0, 0, .4);
 
+}
+@media (min-width: 1400px){
+    .Details p{
+        width: 40%;
+    }
+}
+@media (min-width: 900px){
+    .Details p{
+        width: 40%;
+    }
+}
+@media (max-width: 700px){
+    .Details p{
+        width: 50%;
+    }
+}
+@media (max-width: 400px){
+    .Details p{
+        width: 90%;
+    }
+}
+
+.button{
+	width: 50px;
+	height: 50px;
+    top:50%;
+    /* position: fixed; */
+	left: 50%;
+	margin-top: -45px;
+	margin-left: -50px;
+	border-radius: 5px;
+	background: none;
+	cursor: pointer;
+	transition: background 0.5s ease;
+}
+.button:hover{
+
+}
+.active#heart:before,.active#heart:after{
+	background: red !important;
+}
+#heart {
+    width: 100px;
+    height: 90px;
+    transition: background 0.5s ease;
+}
+#heart:before,
+#heart:after {
+	transition: background 0.5s ease;
+    position: absolute;
+    content: "";
+    left: 50px;
+    top: 0;
+    width: 50px;
+    height: 80px;
+    background: dimgrey;
+    border-radius: 50px 50px 0 0;
+    transform: rotate(-45deg);
+    transform-origin: 0 100%;
+}
+#heart:after {
+    left: 0;
+    transform: rotate(45deg);
+    transform-origin :100% 100%;
+}
+.Love{
+    display: flex;
+    align-items: baseline;
+    
 }

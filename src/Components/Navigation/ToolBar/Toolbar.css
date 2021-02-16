@@ -5,7 +5,16 @@
     position: fixed;
     top: 0;
     left: 0;
-    display: flex;
+    position: fixed;
+    padding: 0 3rem;
+    /* display: flex;
+    align-items: center;
+    justify-content: space-evenly; */
+    display: grid;
+    grid-template-columns: 25% 40% 15% 20%;
     align-items: center;
     justify-content: space-evenly;
+    grid-gap: 1rem;
+    z-index: 55555;
+    box-shadow: 2px 2px 70px rgba(255, 255, 255, 0.527);
 }

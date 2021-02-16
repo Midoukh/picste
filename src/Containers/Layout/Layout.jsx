@@ -1,19 +1,27 @@
 import React, {Component, useState, useEffect} from 'react'
-
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import Latest from '../../Components/MoviesList/Latest/Latest'
+import Tv from '../../Components/TvList/Tv'
 import Toolbar from '../../Components/Navigation/ToolBar/Toolbar'
 import Presentaion from '../../Components/Presentation/Presentation'
+import Anime from '../../Components/Anime/Anime'
 import classes from './Layout.css'
 const Layout = (props) => {
    
     const [homeMovie, setHomeMove] = useState({})
     const [longDescription, setLongDescription] = useState(false)
     const [showModal, setShowModal] = useState(false)
+    const [love, setLove] = useState(false)
     const handleFetchHomeMovie = async () => {
         const latestMovieEndPoint = 'https://api.themoviedb.org/3/movie/popular?api_key='
 
         const res = await fetch(`${latestMovieEndPoint}${process.env.REACT_APP_PUBLIC_API_KEY}&language=en-US&page=1`)
         .then(data => data.json())
-        .then(data => setHomeMove(data))
+        .then(data => {
+          setHomeMove(data)
+          console.log(data)
+        })
+        .catch(error => console.log(error))
         homeMovie? console.log(homeMovie): console.log('wait')
 
       }
@@ -65,18 +73,38 @@ const Layout = (props) => {
 
     }
     return (
+      <Router>
         <div className={classes.Layout}>
             <Toolbar />
-            <Presentaion 
-            movies={homeMovie.results} 
-            toggleHideTxt={toggleHideTxt} 
-            hideText={props.hideText}
-            handleDescription={handleDescription}
-            longDescription={longDescription}
-            showModal={showModal}
-            displayTrailer={displayTrailer}
-            />
+            <Switch>
+              <Route exact path="/">
+
+                  <Presentaion 
+                  movies={homeMovie.results} 
+                  toggleHideTxt={toggleHideTxt} 
+                  hideText={props.hideText}
+                  handleDescription={handleDescription}
+                  longDescription={longDescription}
+                  showModal={showModal}
+                  displayTrailer={displayTrailer}
+                  love={love}
+                  setLove={setLove}
+                  />
+              </Route>
+           
+              <Route exact path="/latest">
+                <Latest />
+
+              </Route>
+              <Route exact path="/tv">
+                <Tv />
+              </Route>
+              <Route exact path="/anime">
+                <Anime />
+              </Route>
+            </Switch>
         </div>
+        </Router>
     )
 }
 

@@ -38,6 +38,22 @@
     height: 30vh;
     z-index: 998;
 }
+.Sorry{
+    position: absolute;
+    color: white;
+    background-color: rgba(173, 216, 230, 0.418);
+    height: 10vh;
+    width: 20vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 997;
+    box-sizing: border-box;
+    left: 45%;
+    top: 50%;
+    border-radius: 15px;
+    padding: .5rem;
+}
 
 @keyframes loading{
     0%{transform: rotate(0deg);}

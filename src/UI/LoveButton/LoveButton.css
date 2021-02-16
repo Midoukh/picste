@@ -1,0 +1,40 @@
+.Heart{
+    height: 15vh;
+    width: 15vh;
+    margin-left: 3vw;
+    cursor: pointer;
+    position: relative;
+}
+.Heart img{
+    transition: all 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    
+}
+.Heart img:hover{
+    transform: rotate(300deg)
+}
+.Heart span{
+    font-size: .6rem;
+    position: absolute;
+    top: 2rem;
+    width: 130%;
+    background-color: rgba(233, 49, 73, 0.774);
+    padding: .4rem .5rem;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.637);
+    color: white;
+    display: none;
+    opacity: 0;
+    transition: all 0.3s cubic-bezier(0.455, 0.03, 0.515, 0.955);
+}
+.added{
+    display: flex;
+    opacity: 1;
+}
+.fade{
+    transform: translateX(200%);
+    opacity: 0;
+}
