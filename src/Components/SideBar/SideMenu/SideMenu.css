@@ -1,0 +1,34 @@
+.SideMenu{
+    height: 50px;
+    min-width: 30px;
+    border-radius: 15px;
+    background-color: rgb(2, 2, 29);
+    border: 1px lightgrey solid;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    position: absolute;
+    cursor: pointer;
+    top: 50vh;
+    left: -.5vh;
+    box-shadow: 2px 2px 40px rgba(2, 2, 29, 0.568);;
+    display: none;
+    transition: all 0.5s cubic-bezier(0.445, 0.05, 0.55, 0.95);
+    z-index: 5555555555;
+
+}
+.SideMenu div{
+    height: 30px;
+    width: 3px;
+    background-color: white;
+}
+.fadeout{
+    transform: translateX(20%);
+    opacity: 0;
+}
+@media (max-width: 850px){
+    .SideMenu{
+        display: flex;
+    }
+
+}

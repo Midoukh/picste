@@ -4,31 +4,21 @@ import Latest from '../../Components/MoviesList/Latest/Latest'
 import Tv from '../../Components/TvList/Tv'
 import Toolbar from '../../Components/Navigation/ToolBar/Toolbar'
 import Presentaion from '../../Components/Presentation/Presentation'
-import Anime from '../../Components/Anime/Anime'
+import ByLanguages from '../../Components/ByLanguages/ByLanguages'
+import SideBar from '../../Components/SideBar/SideBar'
 import classes from './Layout.css'
+import MobileMenu from '../../Components/Navigation/ToolBar/MobileMenu/MobileMenu'
+import Favourite from '../../Components/Favourite/Favourite'
+import Watchpage from './WatchPage/WatchPage'
+
 const Layout = (props) => {
    
-    const [homeMovie, setHomeMove] = useState({})
     const [longDescription, setLongDescription] = useState(false)
-    const [showModal, setShowModal] = useState(false)
     const [love, setLove] = useState(false)
-    const handleFetchHomeMovie = async () => {
-        const latestMovieEndPoint = 'https://api.themoviedb.org/3/movie/popular?api_key='
-
-        const res = await fetch(`${latestMovieEndPoint}${process.env.REACT_APP_PUBLIC_API_KEY}&language=en-US&page=1`)
-        .then(data => data.json())
-        .then(data => {
-          setHomeMove(data)
-          console.log(data)
-        })
-        .catch(error => console.log(error))
-        homeMovie? console.log(homeMovie): console.log('wait')
-
-      }
+    const [showMobMenu, setShowMenu] = useState(false)
    
-    useEffect(() => {
-        handleFetchHomeMovie()
-      }, [])
+   
+    
 
     const handleDescription = (str) => {
         let shortenedStr;
@@ -51,11 +41,9 @@ const Layout = (props) => {
     const toggleHideTxt = (e, longStr, shortStr) => {
       const container = e.target.parentElement
       const elements = container.children
-      console.log(shortStr)
 
       const overview = container.firstChild
 
-      console.log(longStr)
       
       if (e.target.id === 'read_more' && e.target.textContent === 'Read more'){
         overview.textContent = longStr
@@ -67,26 +55,28 @@ const Layout = (props) => {
       }
       
     }
-    //this function is for displaying the trailer of the movie
-    const displayTrailer = () => {
-      setShowModal(previous => previous = !previous)
+    //mobile menu
+    const handleShowMobileMenu = () => {
+      const newVal = !showMobMenu
 
+      setShowMenu(prev => prev = newVal)
     }
     return (
-      <Router>
         <div className={classes.Layout}>
-            <Toolbar />
+            <Toolbar 
+            handleShowMobileMenu={handleShowMobileMenu}
+            showMobMenu={showMobMenu}
+            />
+            <MobileMenu showMobMenu={showMobMenu}/>
+            <SideBar />
             <Switch>
               <Route exact path="/">
 
                   <Presentaion 
-                  movies={homeMovie.results} 
                   toggleHideTxt={toggleHideTxt} 
                   hideText={props.hideText}
                   handleDescription={handleDescription}
                   longDescription={longDescription}
-                  showModal={showModal}
-                  displayTrailer={displayTrailer}
                   love={love}
                   setLove={setLove}
                   />
@@ -99,12 +89,17 @@ const Layout = (props) => {
               <Route exact path="/tv">
                 <Tv />
               </Route>
-              <Route exact path="/anime">
-                <Anime />
+              <Route path="/language">
+                <ByLanguages />
               </Route>
+              <Route exact path="/favourite">
+                <Favourite />
+              </Route>
+              <Router path="/watchpage">
+                <Watchpage/>
+              </Router>
             </Switch>
         </div>
-        </Router>
     )
 }
 

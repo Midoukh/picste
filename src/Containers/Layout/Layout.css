@@ -1,4 +1,17 @@
 .Layout{
     width: 100%;
     min-height: 100vh;
+  
+}
+body::-webkit-scrollbar-track{
+	border: 1px solid #0b2a31;
+	background-color: #F5F5F5;
+}
+body::-webkit-scrollbar{
+	width: 17px;
+	background-color: #F5F5F5;
+}
+body::-webkit-scrollbar-thumb{
+    background-color:#0391b1; 
+    border-radius: 15px;
 }

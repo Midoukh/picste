@@ -5,8 +5,10 @@ import classes from './NavigationItems.css'
 const NavigationItems = (props) => {
     return (
        
-        <ul className={classes.NavigationItems}>
-            <NavigationItem />
+        <ul 
+        className={classes.NavigationItems}
+        >
+            <NavigationItem show={props.show}/>
         </ul>
        
     )

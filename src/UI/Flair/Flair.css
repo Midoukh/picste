@@ -1,0 +1,16 @@
+.Flair{
+    min-height: 35px;
+    width: fit-content;
+    border-radius: 16px;
+    border: 1.5px solid white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 15px;
+    margin-right: 10px;
+    transition: .5s all cubic-bezier(0.19, 1, 0.22, 1);
+    cursor: pointer;
+}
+.Flair:hover{
+    transform: scale(1.1);
+}

@@ -1,110 +1,141 @@
 import React, {Component, useState, useEffect} from 'react'
-
+import axios from 'axios'
 import classes from './Presentation.css'
 import Rating from '../Rating/Rating'
 import Trailer from './Trailer/Trailer'
 import Modal from '../Modal/Modal'
 import LoveButton from '../../UI/LoveButton/LoveButton'
 import Gallery from '../Gallery/Gallery'
+import Banner from '../Banner/Banner'
 
 class Presentation extends Component {
     constructor(props){
         super(props)
 
         this.state = {
+            homeMovie: {},
+            movies: [],
             loading: true,
             data: null,
             error: null,
             randomNum: 1,
             trailerPath: null,
-            movie: {
-                title: null,
-                averageVote: null,
-                overview: null,
-                longOverview: null,
-                year: null,
-                poster: null,
-                backPath: null,
-                favourite: false
-            }
+            showModal: false
         }
     }
-    //storing each favorite movie or tv at local storage
+    handleFetchHomeMovie = async () => {
+        const randomMovie = Math.floor(Math.random() * 11)
+        const latestMovieEndPoint = 'https://api.themoviedb.org/3/movie/popular?api_key='
 
+        const res = axios.get(`${latestMovieEndPoint}${process.env.REACT_APP_PUBLIC_API_KEY}&language=en-US&page=1`)
+        .then(data => {
+          this.setState({ movies: data.data.results })
 
+          this.setState({ homeMovie: data.data.results[randomMovie] })
+          const movieId = data.data.results[randomMovie].id
+          const trailerEndpoint = `https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=${process.env.REACT_APP_PUBLIC_API_KEY}`
+          //find the trailer key
+          axios.get(trailerEndpoint)
+            .then(res => {
+                console.log(res)
+                this.setState({trailerPath: res.data.results[0].key})
+                console.log(res)
+            }).catch(err => {
+                console.log(err)
+            })        
+  
+        })
+        .catch(error => console.log(error))
 
-
-
-
+      }
+ 
     //only want this page to rerender when reload
     shouldComponentUpdate(nextProps, nextState){
         return nextProps.hideText === this.props.hideText
     }
-    async componentDidMount() {
-        //fetch a trailer for the home page movie
-        const movieId = this.props.movies && this.props.movies[this.state.randomNum].id
-        const trailerEndpoint = `https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=${process.env.REACT_APP_PUBLIC_API_KEY}`
-        
-        const response = await fetch(trailerEndpoint)
-        .then(data => data.json())
-        .then(res => {
-            console.log('trailer',res)
-            res && this.setState({trailerPath: res.results[0].key})
-        }).catch(err => {
-            console.log(err)
-        })
-        
     
-    }
     handleFavouriteMovie = (id) => {
         let newVal = !this.state.movie.favourite
-        localStorage.setItem(`Favourite:${id}`, newVal)
+        const previousMovies = JSON.parse(localStorage.getItem('favourites'))
+        if (previousMovies){
+            const updatedFavouriteMovies = [...previousMovies ,{id: id, favourite: newVal, createdAt: new Date(), type: 'movie'}]
+ 
+            localStorage.setItem('favourites',
+            JSON.stringify(updatedFavouriteMovies))
+            console.log(updatedFavouriteMovies)
+        }
+        else{
+            localStorage.setItem('favourites', JSON.stringify([{id: id, favourite: newVal, createdAt: new Date(), type: 'movie'}]))
+        }
+      
         this.setState({ movie: { favourite: newVal}})
-        console.log(localStorage.getItem(`Favourite:${id}`) , newVal)
-        
+    
+    }
+    handleCheckIfFavourite = (id) => {
+        //return boolean
+        const favouriteMovies = JSON.parse(localStorage.getItem('favourites'))
+        let isFavourite = false
+        if (favouriteMovies){
+
+            favouriteMovies.forEach(item => {
+                if (item.id === id){
+                    isFavourite = item.favourite
+                }
+            })
+        }
+        return isFavourite
+
+    }
+    displayTrailer = () => {
+        const newVal = !this.state.showModal
+
+        this.setState({ showModal: newVal })
+  
+    }
+    componentDidMount() {
+        //fetch a trailer for the home page movie
+        this.handleFetchHomeMovie()
+        this.handleCheckIfFavourite()
     }
     
     render(){
-    
-        const movies = this.props.movies
-        const hideText = this.props.hideText
+        //a new movie with each new reload
+        const movie = this.state.homeMovie
+        const movies = this.state.movies
         const toggleHideTxt = this.props.toggleHideTxt
         const handleDescription = this.props.handleDescription
        
-        //regex for shortening the movie overiew
-        const regex = /^(.{199}[^\s]*).*/
+        
         //fetching media for a specific 
         const imageBoiler = 'https://image.tmdb.org/t/p/w500/'
         const trailerBoiler = 'https://www.youtube.com/embed/'
-        //a new movie with each new reload
-        const r = 14
+        
   
     //movie informations
-    const homeMovie = movies && {
-        title: movies[r].original_title,
-        averageVote: movies[r].vote_average,
-        overview: handleDescription(movies[r].overview),
-        longOverview: movies[r].overview,
-        year: movies[r].release_date,
-        poster: movies[r].poster_path,
-        backPath: movies[r].backdrop_path,
-        id: movies[r].id
+    const homeMovie = movie && {
+        title: movie.original_title,
+        averageVote: movie.vote_average,
+        overview: handleDescription(movie.overview),
+        longOverview: movie.overview,
+        year: String(movie.release_date).slice(0, 4),
+        poster: movie.poster_path,
+        backPath: movie.backdrop_path,
+        id: movie.id
     }
-    
-  
-
     //this function is for minifying the description in case its to long to fit
-      
+    console.log(trailerBoiler + this.state.trailerPath)
     return (
-        movies?
+        homeMovie?
         <main>
-        {this.props.showModal &&
-        <Modal trailerURL={this.state.trailerPath? trailerBoiler + this.state.trailerPath: null} displayTrailer={this.props.displayTrailer}>
+        {this.state.showModal &&
+        <Modal 
+        trailerURL={trailerBoiler + this.state.trailerPath} 
+        displayTrailer={this.displayTrailer}>
 
         </Modal>
         }
         <div className={classes.Presentation} 
-            style={{backgroundImage: homeMovie.poster && `url(${imageBoiler}${homeMovie.backPath})`, marginTop: this.props.showModal && '0px'}}>
+            style={{backgroundImage: homeMovie.poster && `url(${imageBoiler}${homeMovie.poster})`, marginTop: this.props.showModal && '0px'}}>
             <div className={classes.Details}>
                 <div className={classes.DetailsTxt}>
 
@@ -112,11 +143,11 @@ class Presentation extends Component {
                     <h1>{homeMovie.title}</h1>
                     <LoveButton 
                     setLove={this.handleFavouriteMovie} 
-                    love={localStorage.getItem(`Favourite:${homeMovie.id}`)} 
+                    love={this.handleCheckIfFavourite(homeMovie.id)} 
                     id={homeMovie.id}/>
 
                 </div>
-                <Rating ratingAvg={homeMovie.averageVote} year={homeMovie.year.slice(0, 4)} height="35px"/>
+                {homeMovie.averageVote && <Rating ratingAvg={homeMovie.averageVote} year={homeMovie.year} height="35px"/>}
                 <div onClick={(e) =>toggleHideTxt(e, homeMovie.longOverview, homeMovie.overview)}>
                     <p>
                         {homeMovie.overview}
@@ -128,11 +159,13 @@ class Presentation extends Component {
                 </div>
                 <Trailer 
                 thumbnail={imageBoiler + homeMovie.poster} 
-                displayTrailer={this.props.displayTrailer}
-                
+                displayTrailer={this.displayTrailer}
                 />
             </div>
-            <Gallery movies={movies}/>
+            <Gallery movies={movies.slice(0, 10)} label={"The Best Films"}/>
+            <Gallery movies={movies.slice(10)} label={"Trending"} handleFavouriteMovie={this.handleFavouriteMovie}/>
+            <Banner />
+
         </div> 
         </main>: 'loading...'
     )

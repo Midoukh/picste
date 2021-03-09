@@ -9,17 +9,17 @@ const LoveButton = ({ setLove, love, id }) => {
     let isLoved = emptyHeart
     let addedMessage = <span>Added to Favourites!</span>
         
-    
-
-    if (love === 'true'){
-        isLoved = filledHeart
-     
-        
+    if (love === true){
+        isLoved = filledHeart 
     }
+    else if (love === false){
+        isLoved = emptyHeart 
+    }
+   
     return (
     <div className={classes.Heart}>
         {added? <span className={classes.added}>Added to Favourites!</span>: null}
-       <img
+       {love === true || love === false?<img
        onClick={() =>{
             setLove(id)
             setAdded(prev => prev = !prev)
@@ -27,7 +27,7 @@ const LoveButton = ({ setLove, love, id }) => {
        src={isLoved} 
        alt="love" 
        height="30px" 
-       title="Add to favourite!"/>
+       title="Add to favourite!"/>:null}
     </div>
     )
 }

@@ -4,8 +4,11 @@ import classes from './Modal.css'
 import exit from '../../Assets/Images/cancel.svg'
 import loading from '../../Assets/Images/loading.svg'
 class Modal extends React.Component{
-    shouldComponentUpdate(previousProps, previosState){
-        return previousProps.trailerURL !== this.props.trailerURL
+    shouldComponentUpdate(nextProps, nextState){
+        console.log('modal shouldComponentUpdate')
+        return true
+        // console.log(previousProps.trailerURL === this.props.trailerURL)
+        // return previousProps.trailerURL === this.props.trailerURL
     }
     render(){
         console.log(this.props.trailerURL)
@@ -23,6 +26,7 @@ class Modal extends React.Component{
            <img className={classes.Spinner} src={loading}/>
         )
         return(
+            
             <div className={classes.Modal}>
             <img src={exit} alt="exit modal" onClick={this.props.displayTrailer}/>
             {trailer}

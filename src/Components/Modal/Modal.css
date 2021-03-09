@@ -37,6 +37,7 @@
     left: 50%;
     height: 30vh;
     z-index: 998;
+    background-color: green;
 }
 .Sorry{
     position: absolute;

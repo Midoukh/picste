@@ -2,20 +2,18 @@
     margin-top: 65px;
     width: 100%;
     min-height: 100vh;
-    background-size: cover;
+    background-repeat: no-repeat;
     background-color: #000321;
     box-sizing: border-box;
     background-size: cover;
-  
+    background-position: center;
+    image-rendering: crisp-edges;
     z-index: 100;
-    /* background-repeat: no-repeat; */
-  
-
 }
+
 .Details{
-    min-height: 100vh;
+    min-height: 75vh;
     width: 100%;
-  
     color: white;
     padding-left: 2rem;
     padding-top: 5rem;
@@ -36,7 +34,7 @@
 
 }
 .Details p{
-    
+    box-sizing: border-box;
     word-wrap: break-word;
     text-shadow: 1px 1px 3px rgba(0, 0, 0, .4);
 

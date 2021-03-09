@@ -6,7 +6,8 @@ import classes from './Tv.css'
 class Tv extends React.Component {
     state = {
         tvs: [],
-        page: 1
+        page: 1,
+        favourite: false
     }
  
     //handle fetch tvs
@@ -44,6 +45,38 @@ class Tv extends React.Component {
         }
         
     }
+    handleFavouriteTv = (id) => {
+        let newVal = !this.state.favourite
+        const previousMovies = JSON.parse(localStorage.getItem('favourites'))
+        if (previousMovies){
+            const updatedFavouriteMovies = [...previousMovies ,{id: id, favourite: newVal, createdAt: new Date(), type: 'tv'}]
+ 
+            localStorage.setItem('favourites',
+            JSON.stringify(updatedFavouriteMovies))
+            console.log(updatedFavouriteMovies)
+        }
+        else{
+            localStorage.setItem('favourites', JSON.stringify([{id: id, favourite: newVal, createdAt: new Date(), type: 'tv'}]))
+        }
+      
+        this.setState({ favourite: newVal })
+    
+    }
+    handleCheckIfFavourite = (id) => {
+        //return boolean
+        const favouriteMovies = JSON.parse(localStorage.getItem('favourites'))
+        let isFavourite = false
+        if (favouriteMovies){
+
+            favouriteMovies.forEach(item => {
+                if (item.id === id){
+                    isFavourite = item.favourite
+                }
+            })
+        }
+        return isFavourite
+
+    }
     render(){
         const tvs =  this.state.tvs
         return (
@@ -56,6 +89,10 @@ class Tv extends React.Component {
                         year={tv.release_date || tv.first_air_date}
                         rating={tv.vote_average}
                         poster={tv.poster_path}
+                        handleFavouriteMovie={this.handleFavouriteTv}
+                        id={tv.id}
+                        love={this.handleCheckIfFavourite(tv.id)}
+                        type='tv'
                    />
                )) :<Spinner />}
             </main>

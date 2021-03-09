@@ -1,12 +1,14 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import Genre from '../../../Movies/Genre/Genre'
+import Languages from '../../../Movies/Languages/Languages'
 import classes from './NavigationItem.css'
 import { Link, useHistory } from 'react-router-dom'
-const NavigationItem = (props) => {
+
+const NavigationItem = ({ show }) => {
     const [showGenre, setShowGenre] = useState(false)
     const history = useHistory()
-  
-
+    const menuRef = useRef()
+    
     const handleShowGenreLists = () =>{
         setShowGenre(prev => prev = !prev)
         console.log('show genre')
@@ -21,25 +23,25 @@ const NavigationItem = (props) => {
     const handleShowTVShows = () => {
         history.push('/tv')
     }
-    const items = [
-        {name: 'Genre', func: handleShowGenreLists},
-        {name: 'Populaire', func: handleShowLatestMovies},
-        {name: 'TV', func: handleShowTVShows},
-        {name: 'Anime',func: true}
-    ]
     
+    const items = [
+       
+        {name: 'Populaire', func: handleShowLatestMovies},
+        {name: 'TV', func: handleShowTVShows}
+    ]
+
+    //hide in toolbar when width is 629px or less
+    //show in sidebar when with is 629px or less
 
   
     return (
-        <>
+        <ul className={classes.NavigationItem}>
+            <Genre />
             {items.map((item, i) => (
-                <ul className={classes.NavigationItem} key={item.name+i} onClick={item.func}>
-                    <li>{item.name}</li>
-                    {showGenre && item.name === 'Genre'? <Genre setShowGenre={setShowGenre}/>: null}                       
-                </ul>
+                <li key={item.name+i} onClick={item.func}>{item.name}</li>  
             ))}
-            
-        </>
+            <Languages />
+        </ul>
     )
 
     }

@@ -15,12 +15,11 @@ class App extends Component {
 
   render(){
     return (
-     
-          <main className="App">
-            <Layout />
-          </main>
-          
-      
+          <Router>
+            <main className="App">
+              <Layout />
+            </main>
+          </Router>
   );
  }
 }

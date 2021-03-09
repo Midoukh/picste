@@ -1,0 +1,20 @@
+.Button{
+    width: fit-content;
+    height: 50px;
+    border-radius: 25px;
+    border: 2px solid white;
+    padding: 0 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+    cursor: pointer;
+    box-sizing: border-box;
+    transition: 0.5s all cubic-bezier(0.23, 1, 0.320, 1);
+    color: rgb(5, 58, 83);
+}
+.Button:hover{
+    background-color: transparent;
+    color: white;
+    
+}

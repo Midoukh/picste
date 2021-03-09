@@ -4,52 +4,54 @@ import right from '../../Assets/Images/right-arrow.svg'
 import left from '../../Assets/Images/left-arrow.svg'
 import Movie from '../MoviesList/Movie/movie'
 
-const Gallery = ({ movies }) => {
+const Gallery = ({ movies, label, handleFavouriteMovie }) => {
     const galleryRef = useRef()
     const leftArrowRef = useRef()
-    const[move, setMove] = useState(10)
+    const[move, setMove] = useState(50)
    
     //what a gallery need to have
     //items, left and right arrow to move the gallery
     //the ability to drag and scroll
     const handleMoveGallery = (e) => {
-        let moveRight = move//-20%
-        let moveLeft = moveRight +10//-10%
         
-
-
-        console.log(e.target.className)
-        if (e.target.id === 'right'){
-            moveRight += 10
-            setMove(prev => prev = moveRight)
-           
-            galleryRef.current.style.transform = `translateX(-${move}%)`
-            console.log('move to left')
+        if (galleryRef.current.scrollLeft !== 0){
             leftArrowRef.current.style.display = 'block'
+        }
+        else if (galleryRef.current.scrollLeft === 0){
+            leftArrowRef.current.style.display = 'none'
+        }
+        
+        if (e.target.id === 'right'){
+            galleryRef.current.scrollLeft += move
+            // galleryRef.current.style.transform = `translateX(-${move}%)`
         }
         if (e.target.id === 'left'){
             
-            setMove(prev => prev = moveLeft)
-            
-
-            galleryRef.current.style.transform = `translateX(-${move}%)`
-            console.log('move to right')
+            // galleryRef.current.style.transform = `translateX(${move}%)`
+            galleryRef.current.scrollLeft -= move
+        
         }
-
+        console.log(galleryRef.current.scrollLeft)
     }
     return (
         <main className={classes.Gallery}>
-            <h3>The Best Films</h3>
+            <h3>{label}</h3>
             <div className={classes.Items} ref={galleryRef}>
-                {movies.slice(0, 10).map(mov => (
+                <div className={classes.InsideGal}>
+                {movies.map(mov => (
                     <Movie 
                     key={mov.id}
                     name={mov.original_name || mov.original_title}
                     year={mov.release_date || mov.first_air_date}
                     rating={mov.vote_average}
                     poster={mov.poster_path}
+                    handleFavouriteMovie={handleFavouriteMovie}
+                    id={mov.id}
                     />
                 ))}
+
+                </div>
+             
             </div>
             <img 
             src={right} 

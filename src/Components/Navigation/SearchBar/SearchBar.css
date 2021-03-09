@@ -3,7 +3,6 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border-bottom: 1px rgba(255, 255, 255, 0.664) solid;
   
 }
 .SearchBar input{
@@ -11,10 +10,18 @@
     background-color: transparent;
     outline: none;
     color: white;
+    border-bottom: 1px rgba(255, 255, 255, 0.664) solid;
+    padding-bottom: .5rem;
 }
 .SearchBar input::placeholder{
     opacity: .4;
 }
 .SearchBar img{
-    height: 4vh;
+    height: 30px;
+    cursor: pointer;
+}
+@media (max-width: 730px){
+    .SearchBar{
+        display: none;
+    }
 }

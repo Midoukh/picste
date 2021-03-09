@@ -2,8 +2,8 @@ import React from 'react'
 import play from '../../../Assets/Images/play-button.svg'
 import classes from './Trailer.css'
 class Trailer extends React.Component {
-    shouldComponentUpdate(previousProps, previosState){
-        return previousProps.thumbnail !== this.props.thumbnail
+    shouldComponentUpdate(nextProp, nextState){
+        return nextProp.thumbnail === this.props.thumbnail
     }
     render(){
 

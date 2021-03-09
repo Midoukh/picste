@@ -1,0 +1,35 @@
+.Banner{
+    width: 100%;
+    height: 300px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+.Layer{
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    background-image: linear-gradient(90deg, #020024a4 0%, #090979b9 35%, #00d5ffbb 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.Layer button{
+    padding: 1.2rem 3.5rem;
+    background-color: rgb(241, 241, 43);
+    border: none;
+    border-radius: 30px;
+    color: #02badf;
+    font-size: 20px;
+    box-sizing: border-box;
+    box-shadow: 3px 3px 45px rgb(243, 243, 52);
+    border: 1px solid rgb(160, 160, 7);
+    cursor: pointer;
+}
+.Banner img{
+    /* height: 100%; */
+    width: 100%;
+    /* position: absolute; */
+}

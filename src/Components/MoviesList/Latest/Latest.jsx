@@ -6,7 +6,9 @@ class Latest extends React.Component{
     //fetch the latest movies
     state = {
         movies : [],
-        pageNum: 1
+        pageNum: 1,
+        favourite: false
+
     }
     handleFetchMovies = async(pageN) => {
         const popularURL = `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.REACT_APP_PUBLIC_API_KEY}&language=en-US&page=${pageN}`
@@ -44,6 +46,40 @@ class Latest extends React.Component{
             }
             
         }
+        handleFavouriteMovie = (id) => {
+            let newVal = !this.state.favourite
+            
+
+            const previousMovies = JSON.parse(localStorage.getItem('favourites'))
+            if (previousMovies){
+                const updatedFavouriteMovies = [...previousMovies ,{id: id, favourite: newVal, createdAt: new Date(), type: 'movie'}]
+     
+                localStorage.setItem('favourites',
+                JSON.stringify(updatedFavouriteMovies))
+                console.log(updatedFavouriteMovies)
+            }
+            else{
+                localStorage.setItem('favourites', JSON.stringify([{id: id, favourite: newVal, createdAt: new Date(), type: 'movie'}]))
+            }
+          
+            this.setState({ favourite: newVal })
+        
+        }
+        handleCheckIfFavourite = (id) => {
+            //return boolean
+            const favouriteMovies = JSON.parse(localStorage.getItem('favourites'))
+            let isFavourite = false
+            if (favouriteMovies){
+    
+                favouriteMovies.forEach(item => {
+                    if (item.id === id){
+                        isFavourite = item.favourite
+                    }
+                })
+            }
+            return isFavourite
+    
+        }
 
         render(){
         return(
@@ -54,6 +90,10 @@ class Latest extends React.Component{
                     year={movie.release_date || movie.first_air_date}
                     rating={movie.vote_average}
                     poster={movie.poster_path}
+                    id={movie.id}
+                    handleFavouriteMovie={this.handleFavouriteMovie}
+                    love={this.handleCheckIfFavourite(movie.id)}
+                    type='movie'
                     />
                 ))}
             </main>

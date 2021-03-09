@@ -1,5 +1,21 @@
+.NavigationItem{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 0;
+    
+}
 .NavigationItem li{
     list-style: none;
     margin: 0;
-
+    z-index: 55555555555555555;
+}
+.NavigationItem > li:hover{
+    text-shadow: 2px 2px 40px white;
+}
+@media (max-width: 850px){
+    .NavigationItem{
+        display: none;
+    }
 }

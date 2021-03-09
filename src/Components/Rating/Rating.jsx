@@ -2,16 +2,16 @@ import React, {useEffect, useRef} from 'react'
 import imbd from '../../Assets/Images/imdb.png'
 import classes from './Rating.css'
 const Rating = (props) =>{
+    
     const innerStartRef = useRef()
     const handleRatingStar = (rating) => {
         //get percentage value from the rating
-        const START_TOTAL = 5
-        const START_PERCENTAGE = ((rating/2)/START_TOTAL)*100
-        //round
-        const startRounded = `${Math.round(START_PERCENTAGE/10)*10}%`
-        //set width of inner start to percentage
-        innerStartRef.current.style.width = startRounded
-        console.log(innerStartRef.current)
+            const START_TOTAL = 5
+            const START_PERCENTAGE = ((rating/2)/START_TOTAL)*100
+            //round
+            const startRounded = `${Math.round(START_PERCENTAGE/10)*10}%`
+            //set width of inner start to percentage
+            innerStartRef.current.style.width = startRounded
     }
     useEffect(() => {
         handleRatingStar(props.ratingAvg)

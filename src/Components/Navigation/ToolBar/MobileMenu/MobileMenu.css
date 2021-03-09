@@ -1,0 +1,27 @@
+.MobileMenu{
+    width: 100%;
+    height: 65px;
+    border-top: 2px solid lightgray;
+    background-color: #000321;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 3vw;
+    opacity: 0;
+    transform: translateY(100%);
+    transition: all 0.5s cubic-bezier(0.39, 0.575, 0.565, 1);
+    box-sizing: border-box;
+}
+.show{
+    opacity: 1;
+    transform: translateY(0%);
+}
+.Favourite{
+    height: 30px;
+    cursor: pointer;
+    transition: transform 0.2s cubic-bezier(0.47, 0, 0.745, 0.715);
+}
+.Favourite:hover{
+    transform: rotate(300deg);
+}

@@ -3,17 +3,26 @@
     display: flex;
     flex-flow: column;
     max-width: 100%;
-    overflow-x: hidden;
+    overflow: hidden;
     box-sizing: border-box;
     color: white;
     padding: 0 1rem;
     position: relative;
 }
 .Items{
+    width: 100%;
+    overflow-x: hidden; 
+}
+.InsideGal{
     display: grid;
     grid-template-columns: repeat(10, 20vw);
     grid-column-gap: 1.5rem;
+    width: 100%;    
 }
+.InsideGal > *{
+    height: 25vh;
+}
+
 .right, .left{
     height: 10vh;
     cursor: pointer;
